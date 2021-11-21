@@ -17,14 +17,15 @@ from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
 
-from user.views import Login, Register
+from user.views import loginView, logoutView, Register
 from tasks.views import home
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
-    path('login/', Login.as_view()),
-    path('register/', Register.as_view()),
-    path('home/', home),
+    path('login/', loginView, name='login'),
+    path('logout/', logoutView, name='logout'),
+    path('register/', Register.as_view(), name='register'),
+    path('home/', home, name='home'),
 ]
 
