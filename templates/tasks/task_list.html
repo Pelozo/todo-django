@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+   <table class="table">
+   <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Status</th>
+      <th scope="col">Category</th>
+    </tr>
+  </thead>
+  <tbody>
+   {% for task in listTasks %}
+    <tr>
+      <td> {{ task.title }}</td>
+      <td> {{ task.description }}</td>
+      <td> {{ task.status }}</td>
+      <td> {{ task.category }}</td>
+    </tr>
+
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock content %}
