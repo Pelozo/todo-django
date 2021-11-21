@@ -8,9 +8,6 @@ from django.template.loader import render_to_string
 from user.forms import UserForm
 from django.contrib.auth import logout
 
-
-# silvania 1234
-
 def loginView(request):
     if request.method == 'POST':
         # sends the data to the DB in order to retrieve data matched with request data
@@ -51,4 +48,3 @@ class Register(CreateView):
         login(self.request, self.object)
         # now return the success url
         return '/'
-

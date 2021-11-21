@@ -16,10 +16,10 @@
         <a class="navbar-brand" href="#"><img src="https://fullcoder.org/_images/logo-django.png" width="24px" height="24px"></a>
     </div>
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Home</a></li>
         {% if user.is_authenticated %}
-      <li><a href="#">Tasks</a></li>
-      <li><a href="#">Categories</a></li>
+      <li><a href="{% url 'listtask' %}">Tasks</a></li>
+      <li><a href="{% url 'listcategory' %}">Categories</a></li>
         {% endif %}
     </ul>
 

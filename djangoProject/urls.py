@@ -16,9 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
-
 from user.views import loginView, logoutView, Register
-from tasks.views import home
+from tasks.views import *
+from categories.views import *
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
@@ -27,5 +27,10 @@ urlpatterns = [
     path('logout/', logoutView, name='logout'),
     path('register/', Register.as_view(), name='register'),
     path('home/', home, name='home'),
+    path('category/create/', CategoryCreate.as_view(), name='createcategory'),
+    path('category/list', CategoryListView.as_view(), name='listcategory'),
+    path('task/create/', CreateTask.as_view(), name='createtask'),
+    path('task/list/', TaskListView.as_view(), name='listtask'),
+
 ]
 
