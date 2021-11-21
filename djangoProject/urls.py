@@ -31,5 +31,7 @@ urlpatterns = [
     path('createcategory/', CategoryCreate.as_view()),
     path('listCategories/', CategoryListView.as_view()),
     path('createtask/', CreateTask.as_view()),
+    path('listTasks/', TaskListView.as_view()),
+
 ]
 
