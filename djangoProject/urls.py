@@ -19,8 +19,8 @@ from django.views.generic.base import TemplateView
 
 from user.views import Login, Register
 from tasks.views import home
-from tasks.views import create_task
-from categories.views import CategoryCreate
+from tasks.views import *
+from categories.views import *
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
@@ -29,6 +29,7 @@ urlpatterns = [
     path('register/', Register.as_view()),
     path('home/', home),
     path('createcategory/', CategoryCreate.as_view()),
-    path('createtask/', create_task),
+    path('listCategories/', CategoryListView.as_view()),
+    path('createtask/', CreateTask.as_view()),
 ]
 
