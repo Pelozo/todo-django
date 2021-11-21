@@ -16,22 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.views.generic.base import TemplateView
-
-from user.views import Login, Register
-from tasks.views import home
+from user.views import loginView, logoutView, Register
 from tasks.views import *
 from categories.views import *
 
 urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
-    path('login/', Login.as_view()),
-    path('register/', Register.as_view()),
-    path('home/', home),
-    path('createcategory/', CategoryCreate.as_view()),
-    path('listCategories/', CategoryListView.as_view()),
-    path('createtask/', CreateTask.as_view()),
-    path('listTasks/', TaskListView.as_view()),
+    path('login/', loginView, name='login'),
+    path('logout/', logoutView, name='logout'),
+    path('register/', Register.as_view(), name='register'),
+    path('home/', home, name='home'),
+    path('category/create/', CategoryCreate.as_view(), name='createcategory'),
+    path('category/list', CategoryListView.as_view(), name='listcategory'),
+    path('task/create/', CreateTask.as_view(), name='createtask'),
+    path('task/list/', TaskListView.as_view(), name='listtask'),
 
 ]
 
