@@ -1,4 +1,3 @@
-from django.shortcuts import render, redirect
 from collections import OrderedDict
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -90,6 +89,5 @@ def board(request, id=None):
     for status, status_n in Task.Status.choices:
         task_list[status_n] = Task.objects.filter(user=request.user.id, status=status, **filterCategory)
 
-    print(task_list)
-
     return render(request, 'board.html', {'categories': categories, 'tasks': task_list, 'category':id})
+

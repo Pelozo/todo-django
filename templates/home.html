@@ -2,10 +2,20 @@
 
 {% block title %}Home{% endblock %}
 
-{% block content %}
-{% if user.is_authenticated %}
-  Hi {{ user.username }}!
-{% else %}
-  <p>You are not logged in</p>
-{% endif %}
-{% endblock %}
+
+   <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-20">
+          {% block content %}
+              <h1 class="mt-15">TODO Django<br>Ortega - Velozo</h1>
+              <hr class="mt-0 mb-4">
+              {% if user.is_authenticated %}
+                 Hi {{ user.username }}!
+                {% else %}
+                   <p >You are not logged in</p>
+              {% endif %}
+          {% endblock %}
+        </div>
+      </div>
+   </div>
+
