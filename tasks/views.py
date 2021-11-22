@@ -14,7 +14,7 @@ def home(request):
 class CreateTask(LoginRequiredMixin, CreateView):
     model = Task
     fields = ['title', 'description', 'category']
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('listtask')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -31,18 +31,3 @@ class TaskListView(ListView, LoginRequiredMixin):
         return context
 
 
-"""def create_task(request):
-    if request.method == 'GET':
-        form = TaskForm()
-        contexto = {
-            'form': form
-        }
-    else:
-        form =TaskForm(request.POST)
-        contexto = {
-            'form': form
-        }
-        if form.is_valid():
-            form.save()
-            return redirect('home.html')
-    return render(request, 'tasks/create_task.html', contexto)"""
