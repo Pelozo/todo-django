@@ -60,4 +60,3 @@ class DeleteTask(DeleteView, LoginRequiredMixin):
     pk_url_kwarg = 'id'
     success_url = reverse_lazy('listtask')
 
-
