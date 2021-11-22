@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from tasks.models import Task
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView
@@ -55,7 +55,9 @@ class UpdateTask(UpdateView, LoginRequiredMixin):
     success_url = reverse_lazy('listtask')
 
 
-def deleteTask(request, id):
-    model = Task.objects.filter(id=id)
-    model.delete()
-    return redirect('listtask')
+class DeleteTask(DeleteView, LoginRequiredMixin):
+    model = Task
+    pk_url_kwarg = 'id'
+    success_url = reverse_lazy('listtask')
+
+
