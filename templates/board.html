@@ -87,51 +87,32 @@
 	 margin: -10px 0 10px -10px;
 	 border-top-left-radius: 3px;
 	 border-top-right-radius: 3px;
-}
+</style>
 
-    </style>
-
-    <div class="ui">
-	<nav class="navbar app">App bar</nav>
-	<nav class="navbar board">Board bar</nav>
+<div class="ui">
+	<nav class="navbar app">
+        {% for category in categories %}
+        {{ category.title}}
+        {% endfor %}
+    </nav>
+	<nav class="navbar board"></nav>
 
 	<div class="lists">
+
+        {% for status, t in tasks.items %}
 		<div class="list">
-			<header>Another List</header>
+			<header>{{ status }}</header>
 			<ul>
-				<li>Just some text</li>
-				<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec lobortis enim sit amet</li>
-				<li>Some more text</li>
-				<li>Some more text</li>
+                {% for task in t %}
+				<li>{{ task.title }}</li>
+                {% endfor %}
 			</ul>
 			<footer>Add a card...</footer>
 		</div>
+        {% endfor %}
 	</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-  Hi {{ user.username }}!
-
-
-
-
-
-
-
-
-
-
+>>>>>>> Stashed changes
 {% else %}
   <p>You are not logged in</p>
 {% endif %}

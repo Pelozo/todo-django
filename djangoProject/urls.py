@@ -21,6 +21,7 @@ from tasks.views import *
 from categories.views import *
 
 urlpatterns = [
+    path('board/', board, name='board'),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('admin/', admin.site.urls),
     path('login/', loginView, name='login'),
@@ -30,6 +31,7 @@ urlpatterns = [
     path('category/create/', CategoryCreate.as_view(), name='createcategory'),
     path('category/list', CategoryListView.as_view(), name='listcategory'),
     path('category/delete/<int:id>/', deleteCategory, name='deletecategory'),
+    path('category/<int:id>/edit', CategoryUpdate.as_view(), name='editcategory'),
     path('task/create/', CreateTask.as_view(), name='createtask'),
     path('task/list/', TaskListView.as_view(), name='listtask'),
     path('task/update/<int:id>/', UpdateTask.as_view(), name='updatetask'),

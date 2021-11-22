@@ -1,4 +1,8 @@
 from django.shortcuts import render, redirect
+from collections import OrderedDict
+from django.shortcuts import render
+
+from categories.models import Category
 from tasks.models import Task
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -47,7 +51,6 @@ def jsonTasks(request, id):
     print(data)
     return JsonResponse(data, status=200, safe=False)
 
-
 class UpdateTask(UpdateView, LoginRequiredMixin):
     model = Task
     fields = ['title', 'description', 'category']
@@ -59,3 +62,18 @@ def deleteTask(request, id):
     model = Task.objects.filter(id=id)
     model.delete()
     return redirect('listtask')
+
+def board(request):
+    categories = Category.objects.filter(user=request.user.id)
+    status_options = Task.Status.choices
+    task_list = OrderedDict()
+
+    for status,status_n in Task.Status.choices:
+        task_list[status_n] = Task.objects.filter(user=request.user.id, status=status)
+
+
+
+    print(task_list)
+
+    print(status_options)
+    return render(request, 'board.html', {'categories': categories, 'tasks': task_list})
