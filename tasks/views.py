@@ -1,4 +1,3 @@
-import serializers as serializers
 from django.shortcuts import render
 from tasks.models import Task
 from django.views.generic.edit import CreateView, UpdateView
@@ -47,6 +46,7 @@ def jsonTasks(request, id):
     data = serialize("json", Task.objects.filter(user=id))
     print(data)
     return JsonResponse(data, status=200, safe=False)
+
 
 class UpdateTask(UpdateView, LoginRequiredMixin):
     model = Task
