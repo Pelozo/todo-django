@@ -7,8 +7,6 @@ from django.views.generic import CreateView
 from django.template.loader import render_to_string
 from user.forms import UserForm
 from django.contrib.auth import logout
-import threading
-from threading import Thread
 
 def loginView(request):
     if request.method == 'POST':
