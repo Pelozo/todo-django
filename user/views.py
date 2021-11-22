@@ -8,6 +8,7 @@ from django.template.loader import render_to_string
 from user.forms import UserForm
 from django.contrib.auth import logout
 
+
 def loginView(request):
     if request.method == 'POST':
         # sends the data to the DB in order to retrieve data matched with request data
@@ -24,6 +25,7 @@ def loginView(request):
 def logoutView(request):
     logout(request)
     return redirect('/home')
+
 
 class Register(CreateView):
     model = User

@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect
-from tasks.models import Task
+from collections import OrderedDict
+from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView
 from django.http import JsonResponse
 from django.core.serializers import serialize
+from tasks.form import *
 
 
 def home(request):
@@ -15,12 +17,18 @@ def home(request):
 
 class CreateTask(LoginRequiredMixin, CreateView):
     model = Task
-    fields = ['title', 'description', 'category']
-    success_url = reverse_lazy('listtask')
+    form_class = AddTaskForm
+    success_url = reverse_lazy('board')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(CreateTask, self).form_valid(form)
+
 
 
 class TaskListView(ListView, LoginRequiredMixin):
@@ -44,20 +52,44 @@ class TaskListView(ListView, LoginRequiredMixin):
 
 def jsonTasks(request, id):
     data = serialize("json", Task.objects.filter(user=id))
-    print(data)
     return JsonResponse(data, status=200, safe=False)
 
 
 class UpdateTask(UpdateView, LoginRequiredMixin):
     model = Task
-    fields = ['title', 'description', 'category']
+    form_class = UpdateTaskForm
     pk_url_kwarg = 'id'
-    success_url = reverse_lazy('listtask')
+    success_url = reverse_lazy('board')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class DeleteTask(DeleteView, LoginRequiredMixin):
     model = Task
     pk_url_kwarg = 'id'
-    success_url = reverse_lazy('listtask')
+    success_url = reverse_lazy('board')
 
+def board(request, id=None):
+    #get categeroies to show in navbar
+    categories = Category.objects.filter(user=request.user.id)
 
+    #tasks to show
+    task_list = OrderedDict()
+
+    #filters for tasks
+    filterCategory = {}
+
+    #filter by category
+    if id is not None:
+        filterCategory = {'category': id}
+
+    #idk how to do this less ugly
+    for status, status_n in Task.Status.choices:
+        task_list[status_n] = Task.objects.filter(user=request.user.id, status=status, **filterCategory)
+
+    print(task_list)
+
+    return render(request, 'board.html', {'categories': categories, 'tasks': task_list, 'category':id})
