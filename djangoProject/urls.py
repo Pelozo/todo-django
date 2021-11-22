@@ -31,6 +31,7 @@ urlpatterns = [
     path('category/list', CategoryListView.as_view(), name='listcategory'),
     path('task/create/', CreateTask.as_view(), name='createtask'),
     path('task/list/', TaskListView.as_view(), name='listtask'),
+    path('task/<int:id>/', jsonTasks, name='endpoint'),
 
 ]
 
