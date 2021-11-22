@@ -47,22 +47,3 @@ def jsonTasks(request, id):
     data = serialize("json", Task.objects.filter(user=id))
     print(data)
     return JsonResponse(data, status=200, safe=False)
-
-
-class JsonTaskListView(ListView):
-    model = Task
-    context_object_name = 'listTasks'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['listTasks'] = context['listTasks'].filter(user=self.request.user)
-        return context
-
-    # if json param is passed, return a json
-    def get(self, request, *args, **kwargs):
-        if 'json' in self.request.GET:
-            queryset = self.get_queryset()
-            data = serialize("json", queryset)
-            return JsonResponse(data, status=200, safe=False)
-        else:
-            return super().get(self, request, *args, **kwargs)
