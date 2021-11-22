@@ -1,3 +1,5 @@
+from django.shortcuts import redirect
+
 from categories.models import Category
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -23,3 +25,9 @@ class CategoryListView(ListView, LoginRequiredMixin):
         context = super().get_context_data(**kwargs)
         context['categories'] = context['categories'].filter(user=self.request.user)
         return context
+
+
+def deleteCategory(request, id):
+    model = Category.objects.filter(id=id)
+    model.delete()
+    return redirect('listcategory')

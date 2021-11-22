@@ -29,9 +29,11 @@ urlpatterns = [
     path('home/', home, name='home'),
     path('category/create/', CategoryCreate.as_view(), name='createcategory'),
     path('category/list', CategoryListView.as_view(), name='listcategory'),
+    path('category/delete/<int:id>/', deleteCategory, name='deletecategory'),
     path('task/create/', CreateTask.as_view(), name='createtask'),
     path('task/list/', TaskListView.as_view(), name='listtask'),
     path('task/update/<int:id>/', UpdateTask.as_view(), name='updatetask'),
+    path('task/delete/<int:id>/', deleteTask, name='deletetask'),
     path('task/<int:id>/', jsonTasks, name='endpoint'),
 
 ]

@@ -9,6 +9,7 @@
       <th scope="col">Description</th>
       <th scope="col">Status</th>
       <th scope="col">Category</th>
+        <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +19,10 @@
       <td> {{ task.description }}</td>
       <td> {{ task.status }}</td>
       <td> {{ task.category }}</td>
+      <td>
+          <a href="{% url 'updatetask' task.id %}"><button type="button"> Edit </button></a>
+          <a href="{% url 'deletetask' task.id %}"><button type="button"> Delete </button></a>
+      </td>
     </tr>
 
     {% endfor %}
