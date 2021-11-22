@@ -33,8 +33,8 @@ class Register(CreateView):
 
     def get_success_url(self):
         # send welcome email
-        msg_plain = render_to_string('emails/welcome.txt', {'params': self.object})
-        msg_html = render_to_string('emails/welcome.html', {'params': self.object})
+        msg_plain = render_to_string('emails/welcome.txt', {'name': self.object.first_name})
+        msg_html = render_to_string('emails/welcome.html', {'name': self.object.first_name})
         send_mail(
             subject='Welcome!',
             message=msg_plain,
