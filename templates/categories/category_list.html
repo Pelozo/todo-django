@@ -2,13 +2,20 @@
 {% block content %}
 
     <a href="{% url 'createcategory' %}"><button type="button"> Add categories</button></a>
-    <ul>
+     <table class="table">
+       <thead class="thead-dark">
+        <tr>
+          <th scope="col">Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for category in categories %}
+        <tr>
+          <td>  {{ category.title }} </td>
+        </tr>
 
-      {% for category in categories %}
-      <li>
-          {{ category.title }}
-      </li>
-      {% endfor %}
+        {% endfor %}
 
-    </ul>
+      </tbody>
+    </table>
 {% endblock content %}
