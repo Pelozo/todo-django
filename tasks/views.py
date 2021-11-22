@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from tasks.models import Task
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView
@@ -31,3 +31,13 @@ class TaskListView(ListView, LoginRequiredMixin):
         return context
 
 
+class UpdateTask(UpdateView, LoginRequiredMixin):
+    model = Task
+    fields = ['title', 'description', 'category']
+    pk_url_kwarg = 'id'
+    success_url = reverse_lazy('listtask')
+
+    """def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(UpdateTask, self).form_valid(form)
+"""
