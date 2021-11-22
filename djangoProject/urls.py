@@ -37,6 +37,7 @@ urlpatterns = [
     path('task/update/<int:id>/', UpdateTask.as_view(), name='updatetask'),
     path('task/delete/<int:id>/', deleteTask, name='deletetask'),
     path('task/<int:id>/', jsonTasks, name='endpoint'),
+    path('board/<int:id>/', board, name='board'),
 
 ]
 

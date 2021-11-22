@@ -7,6 +7,12 @@
 
     <style>
     /* Some Sass variables */
+
+ a:link, a:visited, a:hover, a:active {
+      color: inherit;
+      text-decoration: none;
+ }
+
  body {
 	 margin: 0;
 	 font-family: 'Roboto';
@@ -24,10 +30,12 @@
 	 padding-left: 10px;
 	 display: flex;
 	 align-items: center;
+     color: #eee;
 }
  .navbar.app {
 	 background-color: #0067a3;
 	 font-size: 1.5rem;
+     color: #eee;
 }
  .navbar.board {
 	 font-size: 1.1rem;
@@ -77,42 +85,50 @@
 	 padding: 10px;
 	 border-radius: 3px;
 	 box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+     margin-bottom: 10px;
 }
- .list ul li:not(:last-child) {
-	 margin-bottom: 10px;
-}
+
  .list ul li img {
-	 display: block;
-	 width: calc(100% + 2 * 10px);
-	 margin: -10px 0 10px -10px;
-	 border-top-left-radius: 3px;
-	 border-top-right-radius: 3px;
+     display: block;
+     width: calc(100% + 2 * 10px);
+     margin: -10px 0 10px -10px;
+     border-top-left-radius: 3px;
+     border-top-right-radius: 3px;
+ }
+
 </style>
+
 
 <div class="ui">
 	<nav class="navbar app">
-        {% for category in categories %}
-        {{ category.title}}
-        {% endfor %}
+        <ul class="nav navbar-nav">
+        <li class="nav-item"><a class="nav-link" href={% url 'board' %}> All </a></li>
+          {% for category in categories %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'board' category.id %}">{{ category.title }}</a></li>
+            {% endfor %}
+             <li class="nav-item"><a class="nav-link" href="{% url 'createcategory' %}">+</a></li>
+        </ul>
+
     </nav>
 	<nav class="navbar board"></nav>
 
 	<div class="lists">
-
         {% for status, t in tasks.items %}
 		<div class="list">
 			<header>{{ status }}</header>
 			<ul>
                 {% for task in t %}
-				<li>{{ task.title }}</li>
+                    <li><a href="{% url 'updatetask' task.id %}"> {{ task.title }}</a> <span style="display:flex;float:right;"><a href="{% url "deletetask" task.id %}"><img src="https://cdn.icon-icons.com/icons2/2440/PNG/512/delete_outline_icon_148544.png" height="28px"></a></span> </li>
                 {% endfor %}
 			</ul>
-			<footer>Add a card...</footer>
+            <footer><a href="{% url 'createtask' %}"> Add a card...</a></footer>
 		</div>
         {% endfor %}
 	</div>
 </div>
->>>>>>> Stashed changes
+
+
+
 {% else %}
   <p>You are not logged in</p>
 {% endif %}
