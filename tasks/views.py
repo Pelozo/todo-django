@@ -1,7 +1,6 @@
-import serializers as serializers
 from django.shortcuts import render
 from tasks.models import Task
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import ListView
@@ -17,7 +16,7 @@ def home(request):
 class CreateTask(LoginRequiredMixin, CreateView):
     model = Task
     fields = ['title', 'description', 'category']
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('listtask')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -47,3 +46,15 @@ def jsonTasks(request, id):
     data = serialize("json", Task.objects.filter(user=id))
     print(data)
     return JsonResponse(data, status=200, safe=False)
+
+
+class UpdateTask(UpdateView, LoginRequiredMixin):
+    model = Task
+    fields = ['title', 'description', 'category']
+    pk_url_kwarg = 'id'
+    success_url = reverse_lazy('listtask')
+
+    """def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(UpdateTask, self).form_valid(form)
+"""

@@ -8,7 +8,7 @@ from django.views.generic import ListView
 class CategoryCreate(LoginRequiredMixin, CreateView):
     model = Category
     fields = ['title']
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('listcategory')
 
     def form_valid(self, form):
         form.instance.user = self.request.user

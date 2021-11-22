@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+
+    <a href="{% url 'createcategory' %}"><button type="button"> Add categories</button></a>
     <ul>
 
       {% for category in categories %}
